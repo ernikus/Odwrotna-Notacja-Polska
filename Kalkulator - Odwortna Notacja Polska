@@ -1,0 +1,96 @@
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+char x[250];
+
+int main()
+{
+    cout << "Program Odwortna Notacja Polska" << endl;
+    cout << "Wpisz dzialanie do przekonwertowania na ONP: ";
+    cin >> x;
+
+    stack < int > stosLiczb;
+
+    for(int i=0; i<=100; i++)
+        {
+            if(x[i]=='+'||x[i]=='-'||x[i]=='*'||x[i]=='/'||x[i]=='^'||x[i]=='('||x[i]==')')
+                {
+                cout << " ";
+                if(stosLiczb.empty()==true)
+                    {
+                    stosLiczb.push(x[i]);
+                    }
+                else if(stosLiczb.top()=='^')
+                    {
+                    char a = stosLiczb.top();
+                    cout << a << " ";
+                    stosLiczb.pop();
+                    if(stosLiczb.top()=='*'||stosLiczb.top()=='/')
+                        {
+                        char a = stosLiczb.top();
+                        cout << a << " ";
+                        stosLiczb.pop();
+                        stosLiczb.push(x[i]);
+                        }
+                    }
+                else if(x[i]=='('||x[i]==')')
+                    {
+                    cout<<'\b';
+                    stosLiczb.push(x[i]);
+                    }
+                else if((x[i]=='+'||x[i]=='-')&&(stosLiczb.top()=='*'||stosLiczb.top()=='/'))
+                    {
+                    char a = stosLiczb.top();
+                    cout << a << " ";
+                    stosLiczb.pop();
+                    if((x[i]=='+'||x[i]=='-')&&(stosLiczb.top()=='+'||stosLiczb.top()=='-'))
+                        {
+                        char a = stosLiczb.top();
+                        cout << a << " ";
+                        stosLiczb.pop();
+                        stosLiczb.push(x[i]);
+                        }
+                        else
+                        {
+                        cout << x[i] << " ";
+                        }
+                    }
+                else if((x[i]=='+'||x[i]=='-')&&(stosLiczb.top()=='+'||stosLiczb.top()=='-'))
+                    {
+                    char a = stosLiczb.top();
+                    cout << a << " ";
+                    stosLiczb.pop();
+                    stosLiczb.push(x[i]);
+                    }
+                else
+                    {
+                    stosLiczb.push(x[i]);
+                    }
+                }
+                else if(x[i]=='1'||x[i]=='2'||x[i]=='3'||x[i]=='4'||x[i]=='5'||
+                        x[i]=='6'||x[i]=='7'||x[i]=='8'||x[i]=='9'||x[i]=='0')
+                {
+                cout << x[i];
+                }
+        }
+    cout << " ";
+    while( stosLiczb.empty() == false )
+        {
+        char a = stosLiczb.top();
+        if(a=='('||a==')')
+            {
+            stosLiczb.pop();
+            }
+            else
+            {
+            cout << a << " ";
+            stosLiczb.pop();
+            }
+        }
+        
+    cout << endl;
+    
+    return 0;
+}
