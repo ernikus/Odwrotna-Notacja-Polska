@@ -34,6 +34,10 @@ int main()
                         stosLiczb.pop();
                         stosLiczb.push(x[i]);
                         }
+                        else
+                        {
+                        stosLiczb.push(x[i]);
+                        }
                     }
                 else if(x[i]=='('||x[i]==')')
                     {
@@ -58,6 +62,13 @@ int main()
                         }
                     }
                 else if((x[i]=='+'||x[i]=='-')&&(stosLiczb.top()=='+'||stosLiczb.top()=='-'))
+                    {
+                    char a = stosLiczb.top();
+                    cout << a << " ";
+                    stosLiczb.pop();
+                    stosLiczb.push(x[i]);
+                    }
+                else if((x[i]=='*'||x[i]=='/')&&(stosLiczb.top()=='*'||stosLiczb.top()=='/'))
                     {
                     char a = stosLiczb.top();
                     cout << a << " ";
@@ -89,8 +100,8 @@ int main()
             stosLiczb.pop();
             }
         }
-        
+
     cout << endl;
-    
+
     return 0;
 }
