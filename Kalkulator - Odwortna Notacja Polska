@@ -4,23 +4,32 @@
 #include <cstring>
 #include <set>
 
+/* void plus_and_minus(stack& stosLiczb, const char* lel)
+{
+    char a = stosLiczb.top();
+    cout << a << " ";
+    stosLiczb.pop();
+    stosLiczb.push(x[i]);
+} */
+
 int main()
 {
     std::string inputBuffer;
     std::string sym;
-    std::cout<<"Program Odwortna Notacja Polska"<<std::endl;
-    std::cout<<"Wpisz dzialanie do przekonwertowania na ONP: ";
-    std::cin>>inputBuffer;
-    const int buffer_size= inputBuffer.size();
-    std::stack<int> stosLiczb;
-    std::cout <<"Wprowadziles "<<buffer_size<<" znakow!"<< std::endl;
+    std::cout << "Program Odwortna Notacja Polska" << std::endl;
+    std::cout << "Wpisz dzialanie do przekonwertowania na ONP: ";
+    std::cin >> inputBuffer;
+    std::stack <int> stosLiczb;
+    std::cout << "Wprowadziles " << inputBuffer.size() << " znakow!" << std::endl;
 
-    for(int i=0; i<=buffer_size; i++)
+    /* std::set <char> signs = {+, -, *, /, ^, (, )}; */
+
+    for(int i=0; i<=inputBuffer.size(); i++)
     {
         if(inputBuffer[i]=='+'||inputBuffer[i]=='-'||inputBuffer[i]=='*'||inputBuffer[i]=='/'||
            inputBuffer[i]=='^'||inputBuffer[i]=='('||inputBuffer[i]==')')
         {
-            std::cout<<" ";
+            std::cout << " ";
             if(stosLiczb.empty()==true)
             {
                 stosLiczb.push(inputBuffer[i]);
@@ -28,12 +37,12 @@ int main()
             else if(stosLiczb.top()=='^')
             {
                 char a = stosLiczb.top();
-                std::cout<<a<<" ";
+                std::cout << a << " ";
                 stosLiczb.pop();
                 if(stosLiczb.top()=='*'||stosLiczb.top()=='/')
                 {
                     char a = stosLiczb.top();
-                    std::cout<<a<<" ";
+                    std::cout << a << " ";
                     stosLiczb.pop();
                     stosLiczb.push(inputBuffer[i]);
                 }
@@ -44,37 +53,37 @@ int main()
             }
             else if(inputBuffer[i]=='('||inputBuffer[i]==')')
             {
-                std::cout<<'\b';
+                std::cout << '\b';
                 stosLiczb.push(inputBuffer[i]);
             }
             else if((inputBuffer[i]=='+'||inputBuffer[i]=='-')&&(stosLiczb.top()=='*'||stosLiczb.top()=='/'))
             {
                 char a = stosLiczb.top();
-                std::cout<<a<<" ";
+                std::cout << a << " ";
                 stosLiczb.pop();
                 if((inputBuffer[i]=='+'||inputBuffer[i]=='-')&&(stosLiczb.top()=='+'||stosLiczb.top()=='-'))
                 {
                     char a = stosLiczb.top();
-                    std::cout<<a<<" ";
+                    std::cout << a << " ";
                     stosLiczb.pop();
                     stosLiczb.push(inputBuffer[i]);
                 }
                 else
                 {
-                    std::cout<<inputBuffer[i]<<" ";
+                    std::cout << inputBuffer[i] << " ";
                 }
             }
             else if((inputBuffer[i]=='+'||inputBuffer[i]=='-')&&(stosLiczb.top()=='+'||stosLiczb.top()=='-'))
             {
                 char a = stosLiczb.top();
-                std::cout<<a<<" ";
+                std::cout << a << " ";
                 stosLiczb.pop();
                 stosLiczb.push(inputBuffer[i]);
             }
             else if((inputBuffer[i]=='*'||inputBuffer[i]=='/')&&(stosLiczb.top()=='*'||stosLiczb.top()=='/'))
             {
                 char a = stosLiczb.top();
-                std::cout<<a<<" ";
+                std::cout << a << " ";
                 stosLiczb.pop();
                 stosLiczb.push(inputBuffer[i]);
             }
@@ -84,12 +93,12 @@ int main()
             }
 
         }
-        else if(inputBuffer[i]>=0x30&&inputBuffer[i]<=0x39)
+        else if(isdigit(inputBuffer[i]))
                 {
-                    std::cout<<inputBuffer[i];
+                    std::cout << inputBuffer[i];
                 }
     }
-    std::cout<<" ";
+    std::cout << " ";
     while(stosLiczb.empty()==false)
     {
         char a = stosLiczb.top();
@@ -99,11 +108,11 @@ int main()
         }
         else
         {
-            std::cout<<a<<" ";
+            std::cout << a << " ";
             stosLiczb.pop();
         }
     }
-    std::cout<<std::endl;
+    std::cout << std::endl;
 
     return 0;
 }
